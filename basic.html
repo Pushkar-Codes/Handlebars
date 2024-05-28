@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handlebars</title>
+    <!-- Including Handlebars.js library from CDN -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+      integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div id="myData"></div>
+
+    <script>
+      const myInfo =
+        "<p>Pushkar Dutta studying in {{college}} in {{course}}</p>";
+      // {{}} this also known as moustache template
+
+      const template = Handlebars.compile(myInfo); // compilying the js code with handlebars
+
+      const data = template({ college: "SRM", course: "BCA" });
+
+      document.getElementById("myData").innerHTML += data;
+    </script>
+  </body>
+</html>

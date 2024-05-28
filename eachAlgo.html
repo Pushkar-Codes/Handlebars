@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Including Handlebars.js library from CDN -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+      integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div id="myList"></div>
+
+    <script id="list-template" type="text/x-handlebars-template">
+      <h2>My packing items are ready</h2>
+      <ol>
+        {{#each itemList}} 
+          <li>{{this}}</li>
+        {{/each}}
+      </ol>
+    </script>
+
+    <script type="text/javascript">
+      const myDataList = document.getElementById("list-template").innerHTML;
+      const template = Handlebars.compile(myDataList);
+
+      const data = {
+        itemList: ["Phone", "Charger", "Earbuds", "Pen"],
+      };
+
+      const list = template(data);
+
+      document.getElementById("myList").innerHTML += list;
+    </script>
+  </body>
+</html>
