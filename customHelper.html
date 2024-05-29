@@ -26,12 +26,26 @@
       {{{tripInfo}}}
 
       <br /><br />
+
+      {{makeLink "Google Search" "https://google.com/"}}
+      <br />
+      <br />
     </script>
     <!-- tiprle {{{}}} is used so that, <i> tag can be implemented -->
 
     <script type="text/javascript">
       const myDataList = document.getElementById("list-template").innerHTML;
       const template = Handlebars.compile(myDataList);
+
+      Handlebars.registerHelper("makeLink", function (text, url) {
+        text = Handlebars.Utils.escapeExpression(text);
+        url = Handlebars.Utils.escapeExpression(url);
+
+        var theLink = '<a href="' + url + '">' + text + "</a>";
+
+        // SafeString prevents the string from being escaped
+        return new Handlebars.SafeString(theLink);
+      });
 
       const data = {
         itemList: ["Phone", "Charger", "Earbuds", "Pen"],
