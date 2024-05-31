@@ -3,7 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Handlebars</title>
+    <style type="text/css">
+      .redText {
+        color: red;
+      }
+      .blueText {
+        color: blue;
+      }
+      .greenText {
+        color: green;
+      }
+    </style>
     <!-- Including Handlebars.js library from CDN -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
@@ -30,6 +41,10 @@
       {{makeLink "Google Search" "https://google.com/"}}
       <br />
       <br />
+
+      {{changeColor "Make text red" color="red"}}<br />
+
+      {{sayHello}}
     </script>
     <!-- tiprle {{{}}} is used so that, <i> tag can be implemented -->
 
@@ -47,9 +62,43 @@
         return new Handlebars.SafeString(theLink);
       });
 
+      Handlebars.registerHelper("changeColor", function (text, options) {
+        text = Handlebars.Utils.escapeExpression(text);
+
+        if (options.hash.color === "blue") {
+          return new Handlebars.SafeString(
+            "<span class='blueText'>" + text + "</span>"
+          );
+        } else if (options.hash.color === "red") {
+          return new Handlebars.SafeString(
+            "<span class='redText'>" + text + "</span>"
+          );
+        } else {
+          return new Handlebars.SafeString(
+            "<span class='greenText'>" + text + "</span>"
+          );
+        }
+      });
+
+      Handlebars.registerHelper("sayHello", function (options) {
+        switch (options.data.lang) {
+          case "spanish":
+            return "Hola";
+            break;
+          case "french":
+            return "Bonjour";
+            break;
+          default:
+            return "Hello";
+        }
+      });
+
       const data = {
         itemList: ["Phone", "Charger", "Earbuds", "Pen"],
         tripInfo: "<i>Trip to Japan</i>",
+        data: {
+          lang: "spanish",
+        },
       };
 
       const list = template(data);
