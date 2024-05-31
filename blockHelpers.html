@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handlebars</title>
+    <!-- Including Handlebars.js library from CDN -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"
+      integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div id="contentDiv"></div>
+    <script id="the-template" type="text/x-handlebars-template">
+      {{#makeRadio "size"}}
+        Small
+        <br />
+        Medium
+        <br />
+        Large
+      {{/makeRadio}}
+    </script>
+
+    <script type="text/javascript">
+      const templateInfo = document.getElementById("the-template").innerHTML;
+      const template = Handlebars.compile(templateInfo);
+
+      Handlebars.registerHelper("makeRadio", function (name, options) {
+        let radioList = options.fn().trim().split("\n");
+
+        let output = "";
+        for (let i = 0; i < radioList.length; i++) {
+          let item = radioList[i].trim();
+          if (item && item !== "<br />") {
+            output +=
+              '<input type="radio" name="' +
+              name +
+              '" value="' +
+              item +
+              '">' +
+              item +
+              "<br />";
+          }
+        }
+        return new Handlebars.SafeString(output);
+      });
+
+      const templateData = template({});
+      document.getElementById("contentDiv").innerHTML = templateData;
+    </script>
+  </body>
+</html>
